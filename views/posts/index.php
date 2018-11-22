@@ -23,7 +23,8 @@
                     <td><?php echo $post->created_date; ?></td>
                     <td><?php echo $post->modified_date; ?></td>
                     <td>
-                        <a href='<?php echo constant('URL'); ?>posts/show/<?php echo $post->id; ?>'>Ver contenido</a>
+                        <a href='<?php echo constant('URL'); ?>posts/show/<?php echo $post->id; ?>'>Read</a>
+                        <a href='<?php echo constant('URL'); ?>posts/update/<?php echo $post->id; ?>'>Update</a>
                     </td>
                 </tr>
             <?php }?>

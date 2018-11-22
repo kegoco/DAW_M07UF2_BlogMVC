@@ -20,21 +20,62 @@ class PostsController
     }
 
     /* Devuelve la vista de insertar post */
-    public function insert() {
+    public function insert($message) {
+        if ($message == "success") {
+            echo "
+                <div>
+                    <b>Success: The post was created successfully!</b>
+                </div>
+            ";
+        }
+        else if ($message == "error") {
+            echo "
+                <div>
+                    <b>Error: The post hasn't been created!</b>
+                </div>
+            ";
+        }
+
         require_once 'views/posts/insert.php';
     }
 
+    /* Inserta un nuevo post en la base de datos */
     public function insertNewPost() {
         $title = $_POST["title"];
         $author = $_POST["author"];
         $content = $_POST["content"];
-        // $image = $_POST["image"];
         $image=!empty($_FILES["image"]["name"])
             ? sha1_file($_FILES['image']['tmp_name']) . "-" . basename($_FILES["image"]["name"]) : "";
         $created_date = date('Y-m-d H:i:s');
         $modified_date = date('Y-m-d H:i:s');
 
-        Post::insert($title, $author, $content, $image, $created_date, $modified_date);
+        if ($this->hasNulls([$title, $author, $content, $image, $created_date, $modified_date])) {
+            // Hay algún campo que es null, así que se lanza un error
+            header('Location: '.constant('URL')."posts/insert/error");
+        }
+        else {
+            // Los campos tienen datos, por lo tanto se ejecuta el insert
+            Post::insert($title, $author, $content, $image, $created_date, $modified_date);
+        }
+    }
+
+    /* Devuelve la vista de modificar un post */
+    public function update($id) {
+        if (empty($id)) {
+            return call('pages', 'error', null);
+        }
+        
+        $post = Post::find($id);
+        require_once 'views/posts/update.php';
+    }
+    
+    /* Modifica un post en específico */
+    public function updatePost() {
+        
+    }
+
+    private function hasNulls($request) {
+        return in_array(null, $request) || in_array("", $request);
     }
 }
 ?>

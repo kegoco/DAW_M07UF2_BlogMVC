@@ -59,9 +59,10 @@ class Post
         if($req->execute($data)){
             // Inserción correcta
             Post::uploadImage($image);
+            header('Location: '.constant('URL')."posts/insert/success");
         }else{
             // Error al insertar
-
+            header('Location: '.constant('URL')."posts/insert/error");
         }
     }
 

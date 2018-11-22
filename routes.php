@@ -16,7 +16,7 @@ function call($controller, $action, $params)
 }
 // agregando una entrada para el nuevo controlador y sus acciones.
 $controllers = array('pages' => ['home', 'error'],
-    'posts' => ['index', 'show', "insert", "insertNewPost"],
+    'posts' => ['index', 'show', "insert", "insertNewPost", "update"],
 );
 if (array_key_exists($controller, $controllers)) {
     if (in_array($action, $controllers[$controller])) {
