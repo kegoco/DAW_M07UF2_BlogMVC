@@ -62,7 +62,7 @@ class PostsController
     /* Devuelve la vista de modificar un post */
     public function update($id) {
         if (empty($id)) {
-            return call('pages', 'error', null);
+            return call('posts', 'error', null);
         }
         
         $post = Post::find($id);
@@ -71,11 +71,44 @@ class PostsController
     
     /* Modifica un post en específico */
     public function updatePost() {
-        
+        $id = $_POST["id"];
+        $title = $_POST["title"];
+        $author = $_POST["author"];
+        $content = $_POST["content"];
+        $image=!empty($_FILES["image"]["name"])
+            ? sha1_file($_FILES['image']['tmp_name']) . "-" . basename($_FILES["image"]["name"]) : "";
+        $modified_date = date('Y-m-d H:i:s');
+
+        if ($this->hasNulls([$id, $title, $author, $content, $image, $modified_date])) {
+            // Hay algún campo que es null, así que se lanza un error
+            return call('posts', 'error', null);
+        }
+        else {
+            // Los campos tienen datos, por lo tanto se ejecuta el insert
+            Post::update($id, $title, $author, $content, $image, $modified_date);
+        }
+    }
+
+    /* Borra el post especificado */
+    public function delete($id) {
+        if (empty($id)) {
+            return call('posts', 'error', null);
+        }
+
+        if (Post::delete($id)) {
+            header('Location: '.constant('URL')."posts/index");
+        }
+        else {
+            return call('posts', 'error', null);
+        }
     }
 
     private function hasNulls($request) {
         return in_array(null, $request) || in_array("", $request);
+    }
+
+    public function error() {
+        require_once 'views/posts/error.php';
     }
 }
 ?>

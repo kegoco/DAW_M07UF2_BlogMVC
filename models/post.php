@@ -66,6 +66,37 @@ class Post
         }
     }
 
+    public static function update($id, $title, $author, $content, $image, $modified_date) {
+        $db = Db::getInstance();
+        $req = $db->prepare('UPDATE posts SET title = :title, author = :author, content = :content, image = :image, modified_date = :modified_date WHERE id = :id');
+        $data = array(
+            ":id" => htmlspecialchars(strip_tags($id)),
+            ":title" => htmlspecialchars(strip_tags($title)),
+            ":author" => htmlspecialchars(strip_tags($author)),
+            ":content" => htmlspecialchars(strip_tags($content)),
+            ":image" => htmlspecialchars(strip_tags($image)),
+            ":modified_date" => htmlspecialchars(strip_tags($modified_date))
+        );
+
+        if($req->execute($data)){
+            // Inserción correcta
+            Post::uploadImage($image);
+            header('Location: '.constant('URL')."posts/index");
+        }else{
+            // Error al insertar
+            return call('posts', 'error', null);
+        }
+    }
+
+    public static function delete($id) {
+        $db = Db::getInstance();
+        $req = $db->prepare('DELETE FROM posts WHERE id = :id');
+        $data = array(
+            ":id" => htmlspecialchars(strip_tags($id))
+        );
+        return $req->execute($data);
+    }
+
     private static function uploadImage($image) {
         if($image){
     
