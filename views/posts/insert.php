@@ -34,6 +34,21 @@
                     <input type="file" name="image" />
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <b>Supervisor:</b>
+                </td>
+                <td>
+                    <select name="supervisor">
+                        <?php 
+                            $supervisors = Supervisor::all();
+                            for ($i = 0; $i < count($supervisors); $i++) {
+                                echo "<option value='".$supervisors[$i]->id."'>".$supervisors[$i]->nom."</option>";
+                            }
+                        ?>
+                    </select>
+                </td>
+            </tr>
         </table>
 
         <input type="submit" value="Insert">

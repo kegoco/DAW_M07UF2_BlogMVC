@@ -9,6 +9,7 @@ function call($controller, $action, $params)
         case 'posts':
             // necesitamos el modelo para después consultar a la BBDD desde el controlador
             require_once 'models/post.php';
+            require_once 'models/supervisor.php';
             $controller = new PostsController();
             break;
     }

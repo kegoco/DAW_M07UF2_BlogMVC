@@ -10,7 +10,8 @@ class Post
     public $image;
     public $created_date;
     public $modified_date;
-    public function __construct($id, $title, $author, $content, $image, $created_date, $modified_date)
+    public $supervisor;
+    public function __construct($id, $title, $author, $content, $image, $created_date, $modified_date, $supervisor)
     {
         $this->id = $id;
         $this->title = $title;
@@ -19,16 +20,17 @@ class Post
         $this->image = $image;
         $this->created_date = $created_date;
         $this->modified_date = $modified_date;
+        $this->supervisor = $supervisor;
     }
     public static function all()
     {
         $list = [];
         $db = Db::getInstance();
-        $req = $db->query('SELECT * FROM posts');
+        $req = $db->query('SELECT t1.*, t2.nom FROM posts t1 LEFT JOIN SUPERVISOR t2 ON t1.supervisor = t2.id');
 
         // creamos una lista de objectos post y recorremos la respuesta de la consulta
         foreach ($req->fetchAll() as $post) {
-            $list[] = new Post($post['id'], $post['title'], $post['author'], $post['content'], $post['image'], $post['created_date'], $post['modified_date']);
+            $list[] = new Post($post['id'], $post['title'], $post['author'], $post['content'], $post['image'], $post['created_date'], $post['modified_date'], $post["nom"]);
         }
         return $list;
     }
@@ -37,23 +39,24 @@ class Post
         $db = Db::getInstance();
         // nos aseguramos que $id es un entero
         $id = intval($id);
-        $req = $db->prepare('SELECT * FROM posts WHERE id = :id');
+        $req = $db->prepare('SELECT t1.*, t2.nom FROM posts t1 LEFT JOIN SUPERVISOR t2 ON t1.supervisor = t2.id WHERE t1.id = :id');
         // preparamos la sentencia y reemplazamos :id con el valor de $id
         $req->execute(array('id' => $id));
         $post = $req->fetch();
-        return new Post($post['id'], $post['title'], $post['author'], $post['content'], $post['image'], $post['created_date'], $post['modified_date']);
+        return new Post($post['id'], $post['title'], $post['author'], $post['content'], $post['image'], $post['created_date'], $post['modified_date'], $post["nom"]);
     }
 
-    public static function insert($title, $author, $content, $image, $created_date, $modified_date) {
+    public static function insert($title, $author, $content, $image, $created_date, $modified_date, $supervisor) {
         $db = Db::getInstance();
-        $req = $db->prepare('INSERT INTO posts SET title = :title, author = :author, content = :content, image = :image, created_date = :created_date, modified_date = :modified_date');
+        $req = $db->prepare('INSERT INTO posts SET title = :title, author = :author, content = :content, image = :image, created_date = :created_date, modified_date = :modified_date, supervisor = :supervisor');
         $data = array(
             ":title" => htmlspecialchars(strip_tags($title)),
             ":author" => htmlspecialchars(strip_tags($author)),
             ":content" => htmlspecialchars(strip_tags($content)),
             ":image" => htmlspecialchars(strip_tags($image)),
             ":created_date" => htmlspecialchars(strip_tags($created_date)),
-            ":modified_date" => htmlspecialchars(strip_tags($modified_date))
+            ":modified_date" => htmlspecialchars(strip_tags($modified_date)),
+            ":supervisor" => htmlspecialchars(strip_tags($supervisor))
         );
 
         if($req->execute($data)){
@@ -83,8 +86,8 @@ class Post
             Post::uploadImage($image);
             header('Location: '.constant('URL')."posts/index");
         }else{
-            // Error al insertar
-            return call('posts', 'error', null);
+            // Error al actualizar
+            return call('posts', 'error', "ERROR: This post can't be updated!");
         }
     }
 

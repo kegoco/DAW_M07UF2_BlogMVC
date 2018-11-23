@@ -12,6 +12,7 @@
                 <th>Content</th>
                 <th>Created date</th>
                 <th>Modified date</th>
+                <th>Supervisor</th>
             </tr>
         </thead>
         <tbody>
@@ -22,6 +23,7 @@
                     <td><?php echo $post->content; ?></td>
                     <td><?php echo $post->created_date; ?></td>
                     <td><?php echo $post->modified_date; ?></td>
+                    <td><?php echo $post->supervisor; ?></td>
                     <td>
                         <a href='<?php echo constant('URL'); ?>posts/show/<?php echo $post->id; ?>'>Read</a>
                         <a href='<?php echo constant('URL'); ?>posts/update/<?php echo $post->id; ?>'>Update</a>

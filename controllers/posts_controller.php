@@ -22,6 +22,7 @@ class PostsController
     /* Devuelve la vista de insertar post */
     public function insert($message) {
         if ($message == "success") {
+            // Muestra un mensaje indicando que el post se ha creado correctamente
             echo "
                 <div>
                     <b>Success: The post was created successfully!</b>
@@ -29,6 +30,7 @@ class PostsController
             ";
         }
         else if ($message == "error") {
+            // Muestra un mensaje indicando que el post no se ha podido crear
             echo "
                 <div>
                     <b>Error: The post hasn't been created!</b>
@@ -48,21 +50,22 @@ class PostsController
             ? sha1_file($_FILES['image']['tmp_name']) . "-" . basename($_FILES["image"]["name"]) : "";
         $created_date = date('Y-m-d H:i:s');
         $modified_date = date('Y-m-d H:i:s');
+        $supervisor = $_POST["supervisor"];
 
-        if ($this->hasNulls([$title, $author, $content, $image, $created_date, $modified_date])) {
+        if ($this->hasNulls([$title, $author, $content, $image, $created_date, $modified_date, $supervisor])) {
             // Hay algún campo que es null, así que se lanza un error
             header('Location: '.constant('URL')."posts/insert/error");
         }
         else {
             // Los campos tienen datos, por lo tanto se ejecuta el insert
-            Post::insert($title, $author, $content, $image, $created_date, $modified_date);
+            Post::insert($title, $author, $content, $image, $created_date, $modified_date, $supervisor);
         }
     }
 
     /* Devuelve la vista de modificar un post */
     public function update($id) {
         if (empty($id)) {
-            return call('posts', 'error', null);
+            return call('posts', 'error', "ERROR: No post selected!");
         }
         
         $post = Post::find($id);
@@ -81,7 +84,7 @@ class PostsController
 
         if ($this->hasNulls([$id, $title, $author, $content, $image, $modified_date])) {
             // Hay algún campo que es null, así que se lanza un error
-            return call('posts', 'error', null);
+            return call('posts', 'error', "ERROR: You need to specify all values!");
         }
         else {
             // Los campos tienen datos, por lo tanto se ejecuta el insert
@@ -92,22 +95,33 @@ class PostsController
     /* Borra el post especificado */
     public function delete($id) {
         if (empty($id)) {
-            return call('posts', 'error', null);
+            return call('posts', 'error', "ERROR: This post hasn't exists!");
         }
 
         if (Post::delete($id)) {
-            header('Location: '.constant('URL')."posts/index");
+            header('Location: '.constant('URL')."posts/index");  // Retorna al índice de posts
         }
         else {
-            return call('posts', 'error', null);
+            // No se ha podido borrar, retorna error
+            return call('posts', 'error', "ERROR: This post can't be delete!");
         }
     }
 
+    /* Comprueba si el parámetro es null */
     private function hasNulls($request) {
         return in_array(null, $request) || in_array("", $request);
     }
 
-    public function error() {
+    /* Retorna la vista de error de los posts */
+    public function error($message) {
+        if ($message) {
+            echo "
+                <div>
+                    <b>$message</b>
+                </div>
+            ";
+        }
+
         require_once 'views/posts/error.php';
     }
 }
