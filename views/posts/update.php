@@ -45,7 +45,7 @@
                         <?php 
                             $supervisors = Supervisor::all();
                             for ($i = 0; $i < count($supervisors); $i++) {
-                                echo "<option value='".$supervisors[$i]->id."' ".(($supervisors[$i]->id == $post->id) ? "selected" : "").">".$supervisors[$i]->nom."</option>";
+                                echo "<option value='".$supervisors[$i]->id."' ".(($supervisors[$i]->id == $post->supervisor_id) ? "selected" : "").">".$supervisors[$i]->nom."</option>";
                             }
                         ?>
                     </select>

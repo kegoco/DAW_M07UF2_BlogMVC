@@ -79,16 +79,17 @@ class PostsController
         $author = $_POST["author"];
         $content = $_POST["content"];
         $image=!empty($_FILES["image"]["name"])
-            ? sha1_file($_FILES['image']['tmp_name']) . "-" . basename($_FILES["image"]["name"]) : "";
+            ? sha1_file($_FILES['image']['tmp_name']) . "-" . basename($_FILES["image"]["name"]) : null;
         $modified_date = date('Y-m-d H:i:s');
+        $supervisor = $_POST["supervisor"];
 
-        if ($this->hasNulls([$id, $title, $author, $content, $image, $modified_date])) {
+        if ($this->hasNulls([$id, $title, $author, $content, $modified_date, $supervisor])) {
             // Hay algún campo que es null, así que se lanza un error
             return call('posts', 'error', "ERROR: You need to specify all values!");
         }
         else {
             // Los campos tienen datos, por lo tanto se ejecuta el insert
-            Post::update($id, $title, $author, $content, $image, $modified_date);
+            Post::update($id, $title, $author, $content, $image, $modified_date, $supervisor);
         }
     }
 

@@ -10,8 +10,9 @@ class Post
     public $image;
     public $created_date;
     public $modified_date;
-    public $supervisor;
-    public function __construct($id, $title, $author, $content, $image, $created_date, $modified_date, $supervisor)
+    public $supervisor_id;
+    public $supervisor_name;
+    public function __construct($id, $title, $author, $content, $image, $created_date, $modified_date, $supervisor_id, $supervisor_name)
     {
         $this->id = $id;
         $this->title = $title;
@@ -20,7 +21,8 @@ class Post
         $this->image = $image;
         $this->created_date = $created_date;
         $this->modified_date = $modified_date;
-        $this->supervisor = $supervisor;
+        $this->supervisor_id = $supervisor_id;
+        $this->supervisor_name = $supervisor_name;
     }
     public static function all()
     {
@@ -30,7 +32,7 @@ class Post
 
         // creamos una lista de objectos post y recorremos la respuesta de la consulta
         foreach ($req->fetchAll() as $post) {
-            $list[] = new Post($post['id'], $post['title'], $post['author'], $post['content'], $post['image'], $post['created_date'], $post['modified_date'], $post["nom"]);
+            $list[] = new Post($post['id'], $post['title'], $post['author'], $post['content'], $post['image'], $post['created_date'], $post['modified_date'], $post["supervisor"], $post["nom"]);
         }
         return $list;
     }
@@ -43,7 +45,7 @@ class Post
         // preparamos la sentencia y reemplazamos :id con el valor de $id
         $req->execute(array('id' => $id));
         $post = $req->fetch();
-        return new Post($post['id'], $post['title'], $post['author'], $post['content'], $post['image'], $post['created_date'], $post['modified_date'], $post["nom"]);
+        return new Post($post['id'], $post['title'], $post['author'], $post['content'], $post['image'], $post['created_date'], $post['modified_date'], $post["supervisor"], $post["nom"]);
     }
 
     public static function insert($title, $author, $content, $image, $created_date, $modified_date, $supervisor) {
@@ -69,25 +71,47 @@ class Post
         }
     }
 
-    public static function update($id, $title, $author, $content, $image, $modified_date) {
+    public static function update($id, $title, $author, $content, $image, $modified_date, $supervisor) {
         $db = Db::getInstance();
-        $req = $db->prepare('UPDATE posts SET title = :title, author = :author, content = :content, image = :image, modified_date = :modified_date WHERE id = :id');
-        $data = array(
-            ":id" => htmlspecialchars(strip_tags($id)),
-            ":title" => htmlspecialchars(strip_tags($title)),
-            ":author" => htmlspecialchars(strip_tags($author)),
-            ":content" => htmlspecialchars(strip_tags($content)),
-            ":image" => htmlspecialchars(strip_tags($image)),
-            ":modified_date" => htmlspecialchars(strip_tags($modified_date))
-        );
-
-        if($req->execute($data)){
-            // Inserción correcta
-            Post::uploadImage($image);
-            header('Location: '.constant('URL')."posts/index");
-        }else{
-            // Error al actualizar
-            return call('posts', 'error', "ERROR: This post can't be updated!");
+        if (empty($image)) {
+            $req = $db->prepare('UPDATE posts SET title = :title, author = :author, content = :content, modified_date = :modified_date, supervisor = :supervisor WHERE id = :id');
+            $data = array(
+                ":id" => htmlspecialchars(strip_tags($id)),
+                ":title" => htmlspecialchars(strip_tags($title)),
+                ":author" => htmlspecialchars(strip_tags($author)),
+                ":content" => htmlspecialchars(strip_tags($content)),
+                ":modified_date" => htmlspecialchars(strip_tags($modified_date)),
+                ":supervisor" => htmlspecialchars(strip_tags($supervisor))
+            );
+    
+            if($req->execute($data)){
+                // Actualización correcta
+                header('Location: '.constant('URL')."posts/index");
+            }else{
+                // Error al actualizar
+                return call('posts', 'error', "ERROR: This post can't be updated!");
+            }
+        }
+        else {
+            $req = $db->prepare('UPDATE posts SET title = :title, author = :author, content = :content, image = :image, modified_date = :modified_date, supervisor = :supervisor WHERE id = :id');
+            $data = array(
+                ":id" => htmlspecialchars(strip_tags($id)),
+                ":title" => htmlspecialchars(strip_tags($title)),
+                ":author" => htmlspecialchars(strip_tags($author)),
+                ":content" => htmlspecialchars(strip_tags($content)),
+                ":image" => htmlspecialchars(strip_tags($image)),
+                ":modified_date" => htmlspecialchars(strip_tags($modified_date)),
+                ":supervisor" => htmlspecialchars(strip_tags($supervisor))
+            );
+    
+            if($req->execute($data)){
+                // Actualización correcta
+                Post::uploadImage($image);
+                header('Location: '.constant('URL')."posts/index");
+            }else{
+                // Error al actualizar
+                return call('posts', 'error', "ERROR: This post can't be updated!");
+            }
         }
     }
 
