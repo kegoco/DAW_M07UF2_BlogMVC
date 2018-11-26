@@ -1,11 +1,14 @@
 <?php
 class PostsController
 {
-    public function index()
+    public function index($page)
     {
-        // Guardamos todos los posts en una variable
-        $posts = Post::all();
+        $controller = "posts";
+        $count_posts = Post::countAll();
+        $pagination = new PaginationController((!empty($page)) ? $page : 1, $count_posts);
+        $posts = Post::all($pagination->items_show, $pagination->items_page);  // Guardamos todos los posts en una variable
         require_once 'views/posts/index.php';
+        $pagination->createPagination($controller, $pagination->pages);  // Muestra la paginación
     }
     public function show($id)
     {

@@ -24,11 +24,18 @@ class Post
         $this->supervisor_id = $supervisor_id;
         $this->supervisor_name = $supervisor_name;
     }
-    public static function all()
+
+    public static function countAll() {
+        $db = Db::getInstance();
+        $req = $db->query("SELECT COUNT(*) as counter FROM posts");
+        return $req->fetchAll()[0]["counter"];
+    }
+
+    public static function all($offset, $limit)
     {
         $list = [];
         $db = Db::getInstance();
-        $req = $db->query('SELECT t1.*, t2.nom FROM posts t1 LEFT JOIN SUPERVISOR t2 ON t1.supervisor = t2.id');
+        $req = $db->query("SELECT t1.*, t2.nom FROM posts t1 LEFT JOIN SUPERVISOR t2 ON t1.supervisor = t2.id LIMIT $offset, $limit");
 
         // creamos una lista de objectos post y recorremos la respuesta de la consulta
         foreach ($req->fetchAll() as $post) {
