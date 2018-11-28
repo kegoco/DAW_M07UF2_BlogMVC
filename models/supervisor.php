@@ -13,6 +13,18 @@ class Supervisor {
         $this->is_boss = $is_boss;
     }
 
+    public static function find($id)
+    {
+        $db = Db::getInstance();
+        // nos aseguramos que $id es un entero
+        $id = intval($id);
+        $req = $db->prepare('SELECT * FROM SUPERVISOR WHERE id = :id');
+        // preparamos la sentencia y reemplazamos :id con el valor de $id
+        $req->execute(array('id' => $id));
+        $post = $req->fetch();
+        return new Supervisor($post['id'], $post['nom'], $post['created_date'], $post['is_boss']);
+    }
+
     public static function all($offset, $limit) {
         $list = [];
         $db = Db::getInstance();
@@ -47,6 +59,33 @@ class Supervisor {
             // Error al insertar
             header('Location: '.constant('URL')."supervisors/insert/error");
         }
+    }
+
+    public static function update($id, $nom, $is_boss) {
+        $db = Db::getInstance();
+        $req = $db->prepare('UPDATE SUPERVISOR SET nom = :nom, is_boss = :is_boss WHERE id = :id');
+        $data = array(
+            ":nom" => htmlspecialchars(strip_tags($nom)),
+            ":is_boss" => htmlspecialchars(strip_tags($is_boss)),
+            ":id" => htmlspecialchars(strip_tags($id))
+        );
+
+        if($req->execute($data)){
+            // Modificación correcta
+            header('Location: '.constant('URL')."supervisors/index");
+        }else{
+            // Error al modificar
+            return call('supervisors', 'error', "ERROR: This supervisor can't be updated!");
+        }
+    }
+
+    public function delete($id) {
+        $db = Db::getInstance();
+        $req = $db->prepare('DELETE FROM SUPERVISOR WHERE id = :id');
+        $data = array(
+            ":id" => htmlspecialchars(strip_tags($id))
+        );
+        return $req->execute($data);
     }
 }
 ?>

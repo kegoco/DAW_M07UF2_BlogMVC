@@ -91,7 +91,7 @@ class PostsController
             return call('posts', 'error', "ERROR: You need to specify all values!");
         }
         else {
-            // Los campos tienen datos, por lo tanto se ejecuta el insert
+            // Los campos tienen datos, por lo tanto se ejecuta el update
             Post::update($id, $title, $author, $content, $image, $modified_date, $supervisor);
         }
     }
