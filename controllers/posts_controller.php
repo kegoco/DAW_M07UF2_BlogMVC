@@ -1,12 +1,17 @@
 <?php
 class PostsController
 {
-    public function index($page)
+    public function index()
     {
-        $controller = "posts";
-        $count_posts = Post::countAll();
+        // Coge la página y el filtro en caso de que existan
+        $page = (isset($_POST["page"])) ? $_POST["page"] : null;
+        $filter = isset($_POST["filter"]) ? $_POST["filter"] : "";
+
+        $controller = "posts";  // Indica en qué controlador estamos
+        $count_posts = Post::countAll($filter);  // Hace el count para la paginación
         $pagination = new PaginationController((!empty($page)) ? $page : 1, $count_posts);
-        $posts = Post::all($pagination->items_show, $pagination->items_page);  // Guardamos todos los posts en una variable
+        $posts = Post::all($pagination->items_show, $pagination->items_page, $filter);  // Guardamos todos los posts en una variable
+        require_once 'views/finder.php';
         require_once 'views/posts/index.php';
         $pagination->createPagination($controller, $pagination->pages);  // Muestra la paginación
     }

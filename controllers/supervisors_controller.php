@@ -2,12 +2,17 @@
 class SupervisorsController
 {
     /* Retorna la página con todos los supervisores */
-    public function index($page)
+    public function index()
     {
-        $controller = "supervisors";
-        $count_posts = Supervisor::countAll();
+        // Coge la página y el filtro en caso de que existan
+        $page = (isset($_POST["page"])) ? $_POST["page"] : null;
+        $filter = isset($_POST["filter"]) ? $_POST["filter"] : "";
+
+        $controller = "supervisors";  // Indica en qué controlador estamos
+        $count_posts = Supervisor::countAll($filter);  // Hace el count para la paginación
         $pagination = new PaginationController((!empty($page)) ? $page : 1, $count_posts);
-        $posts = Supervisor::all($pagination->items_show, $pagination->items_page);  // Guardamos todos los posts en una variable
+        $posts = Supervisor::all($pagination->items_show, $pagination->items_page, $filter);  // Guardamos todos los posts en una variable
+        require_once 'views/finder.php';
         require_once 'views/supervisors/index.php';
         $pagination->createPagination($controller, $pagination->pages);  // Muestra la paginación
     }

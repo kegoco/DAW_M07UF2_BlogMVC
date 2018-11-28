@@ -25,10 +25,11 @@ class Supervisor {
         return new Supervisor($post['id'], $post['nom'], $post['created_date'], $post['is_boss']);
     }
 
-    public static function all($offset, $limit) {
+    public static function all($offset, $limit, $filter) {
         $list = [];
         $db = Db::getInstance();
-        $req = $db->query("SELECT * FROM SUPERVISOR LIMIT $offset, $limit");
+        $req = $db->query("SELECT * FROM SUPERVISOR"
+            ." WHERE nom LIKE '%$filter%' OR is_boss LIKE '%$filter%'"." LIMIT $offset, $limit");
 
         // creamos una lista de objectos post y recorremos la respuesta de la consulta
         foreach ($req->fetchAll() as $post) {
@@ -37,9 +38,9 @@ class Supervisor {
         return $list;
     }
 
-    public static function countAll() {
+    public static function countAll($filter) {
         $db = Db::getInstance();
-        $req = $db->query("SELECT COUNT(*) as counter FROM SUPERVISOR");
+        $req = $db->query("SELECT COUNT(*) as counter FROM SUPERVISOR WHERE nom LIKE '%$filter%' OR is_boss LIKE '%$filter%'");
         return $req->fetchAll()[0]["counter"];
     }
 

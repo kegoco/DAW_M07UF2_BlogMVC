@@ -25,17 +25,18 @@ class Post
         $this->supervisor_name = $supervisor_name;
     }
 
-    public static function countAll() {
+    public static function countAll($filter) {
         $db = Db::getInstance();
-        $req = $db->query("SELECT COUNT(*) as counter FROM posts");
+        $req = $db->query("SELECT COUNT(*) as counter FROM posts WHERE title LIKE '%$filter%' OR author LIKE '%$filter%' OR content LIKE '%$filter%'");
         return $req->fetchAll()[0]["counter"];
     }
 
-    public static function all($offset, $limit)
+    public static function all($offset, $limit, $filter)
     {
         $list = [];
         $db = Db::getInstance();
-        $req = $db->query("SELECT t1.*, t2.nom FROM posts t1 LEFT JOIN SUPERVISOR t2 ON t1.supervisor = t2.id LIMIT $offset, $limit");
+        $req = $db->query("SELECT t1.*, t2.nom FROM posts t1 LEFT JOIN SUPERVISOR t2 ON t1.supervisor = t2.id"
+            ." WHERE t1.title LIKE '%$filter%' OR author LIKE '%$filter%' OR content LIKE '%$filter%'"." LIMIT $offset, $limit");
 
         // creamos una lista de objectos post y recorremos la respuesta de la consulta
         foreach ($req->fetchAll() as $post) {
