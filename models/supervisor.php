@@ -29,7 +29,8 @@ class Supervisor {
         $list = [];
         $db = Db::getInstance();
         $req = $db->query("SELECT * FROM SUPERVISOR"
-            ." WHERE nom LIKE '%$filter%' OR is_boss LIKE '%$filter%'"." LIMIT $offset, $limit");
+            ." WHERE nom LIKE '%$filter%' OR is_boss LIKE '%$filter%' OR created_date LIKE '%$filter%'"
+            ." LIMIT $offset, $limit");
 
         // creamos una lista de objectos post y recorremos la respuesta de la consulta
         foreach ($req->fetchAll() as $post) {
@@ -40,7 +41,8 @@ class Supervisor {
 
     public static function countAll($filter) {
         $db = Db::getInstance();
-        $req = $db->query("SELECT COUNT(*) as counter FROM SUPERVISOR WHERE nom LIKE '%$filter%' OR is_boss LIKE '%$filter%'");
+        $req = $db->query("SELECT COUNT(*) as counter FROM SUPERVISOR"
+            ." WHERE nom LIKE '%$filter%' OR is_boss LIKE '%$filter%' OR created_date LIKE '%$filter%'");
         return $req->fetchAll()[0]["counter"];
     }
 

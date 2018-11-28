@@ -27,7 +27,8 @@ class Post
 
     public static function countAll($filter) {
         $db = Db::getInstance();
-        $req = $db->query("SELECT COUNT(*) as counter FROM posts WHERE title LIKE '%$filter%' OR author LIKE '%$filter%' OR content LIKE '%$filter%'");
+        $req = $db->query("SELECT COUNT(t1.id) as counter FROM posts t1, SUPERVISOR t2"
+            ." WHERE t1.supervisor = t2.id AND (t1.title LIKE '%$filter%' OR t1.author LIKE '%$filter%' OR t1.content LIKE '%$filter%' OR t1.created_date LIKE '%$filter%' OR t1.modified_date LIKE '%$filter%' OR t2.nom LIKE '%$filter%')");
         return $req->fetchAll()[0]["counter"];
     }
 
@@ -36,7 +37,8 @@ class Post
         $list = [];
         $db = Db::getInstance();
         $req = $db->query("SELECT t1.*, t2.nom FROM posts t1 LEFT JOIN SUPERVISOR t2 ON t1.supervisor = t2.id"
-            ." WHERE t1.title LIKE '%$filter%' OR author LIKE '%$filter%' OR content LIKE '%$filter%'"." LIMIT $offset, $limit");
+            ." WHERE t1.title LIKE '%$filter%' OR t1.author LIKE '%$filter%' OR t1.content LIKE '%$filter%' OR t1.created_date LIKE '%$filter%' OR t1.modified_date LIKE '%$filter%' OR t2.nom LIKE '%$filter%'"
+            ." LIMIT $offset, $limit");
 
         // creamos una lista de objectos post y recorremos la respuesta de la consulta
         foreach ($req->fetchAll() as $post) {

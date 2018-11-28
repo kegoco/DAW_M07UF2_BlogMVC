@@ -7,12 +7,36 @@
     <table>
         <thead>
             <tr>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Content</th>
-                <th>Created date</th>
-                <th>Modified date</th>
-                <th>Supervisor</th>
+                <th>
+                    <span>Title</span>
+                    <button name="sort" value="title:asc">↑</button>
+                    <button name="sort" value="title:desc">↓</button>
+                </th>
+                <th>
+                    <span>Author</span>
+                    <button name="sort" value="author:asc">↑</button>
+                    <button name="sort" value="author:desc">↓</button>
+                </th>
+                <th>
+                    <span>Content</span>
+                    <button name="sort" value="content:asc">↑</button>
+                    <button name="sort" value="content:desc">↓</button>
+                </th>
+                <th>
+                    <span>Created date</span>
+                    <button name="sort" value="created_date:asc">↑</button>
+                    <button name="sort" value="created_date:desc">↓</button>
+                </th>
+                <th>
+                    <span>Modified date</span>
+                    <button name="sort" value="modified_date:asc">↑</button>
+                    <button name="sort" value="modified_date:desc">↓</button>
+                </th>
+                <th>
+                    <span>Supervisor</span>
+                    <button name="sort" value="supervisor:asc">↑</button>
+                    <button name="sort" value="supervisor:desc">↓</button>
+                </th>
             </tr>
         </thead>
         <tbody>

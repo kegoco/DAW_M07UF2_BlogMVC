@@ -5,7 +5,9 @@ class PostsController
     {
         // Coge la página y el filtro en caso de que existan
         $page = (isset($_POST["page"])) ? $_POST["page"] : null;
-        $filter = isset($_POST["filter"]) ? $_POST["filter"] : "";
+        $filter = (isset($_POST["filter"])) ? $_POST["filter"] : "";
+        $sort = (isset($_POST["sort"])) ? isset($_POST["sort"]) : null;
+        // TODO: Realizar la ordenación utilizando la variable sort (campo:orden)
 
         $controller = "posts";  // Indica en qué controlador estamos
         $count_posts = Post::countAll($filter);  // Hace el count para la paginación
