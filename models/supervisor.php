@@ -32,7 +32,6 @@ class Supervisor {
             ." WHERE nom LIKE '%$filter%' OR is_boss LIKE '%$filter%' OR created_date LIKE '%$filter%' $sort";
         if (($offset != null || $offset == 0) && $limit != null) $query .= " LIMIT $offset, $limit";
         
-        echo $query;
         $req = $db->query($query);
 
         // creamos una lista de objectos post y recorremos la respuesta de la consulta

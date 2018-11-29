@@ -1,0 +1,29 @@
+/* ESTILO PARA EL HEADER */
+.header-container {
+    background-color: #303030;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+}
+@media screen and (max-width: 500px) {
+    .header-container {
+        background-color: #303030;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+.header-link {
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+    padding: 10px;
+}
+.header-link:hover {
+    border-radius: 50px;
+    background-color: yellowgreen;
+}
