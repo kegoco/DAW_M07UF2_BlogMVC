@@ -32,12 +32,13 @@ class Post
         return $req->fetchAll()[0]["counter"];
     }
 
-    public static function all($offset, $limit, $filter)
+    public static function all($offset, $limit, $filter, $sort)
     {
         $list = [];
         $db = Db::getInstance();
         $req = $db->query("SELECT t1.*, t2.nom FROM posts t1 LEFT JOIN SUPERVISOR t2 ON t1.supervisor = t2.id"
             ." WHERE t1.title LIKE '%$filter%' OR t1.author LIKE '%$filter%' OR t1.content LIKE '%$filter%' OR t1.created_date LIKE '%$filter%' OR t1.modified_date LIKE '%$filter%' OR t2.nom LIKE '%$filter%'"
+            ." $sort"
             ." LIMIT $offset, $limit");
 
         // creamos una lista de objectos post y recorremos la respuesta de la consulta

@@ -7,9 +7,21 @@
     <table>
         <thead>
             <tr>
-                <th>Nom</th>
-                <th>Created date</th>
-                <th>Is boss</th>
+                <th>
+                    <span>Nom</span>
+                    <button name="sort" value="nom:asc">↑</button>
+                    <button name="sort" value="nom:desc">↓</button>
+                </th>
+                <th>
+                    <span>Created date</span>
+                    <button name="sort" value="created_date:asc">↑</button>
+                    <button name="sort" value="created_date:desc">↓</button>
+                </th>
+                <th>
+                    <span>Is boss</span>
+                    <button name="sort" value="is_boss:asc">↑</button>
+                    <button name="sort" value="is_boss:desc">↓</button>
+                </th>
             </tr>
         </thead>
         <tbody>

@@ -4,14 +4,33 @@ class SupervisorsController
     /* Retorna la página con todos los supervisores */
     public function index()
     {
-        // Coge la página y el filtro en caso de que existan
-        $page = (isset($_POST["page"])) ? $_POST["page"] : null;
-        $filter = isset($_POST["filter"]) ? $_POST["filter"] : "";
+        $page = 1;
+        if (isset($_POST["page"])) {
+            $page = $_POST["page"];  // Coge la nueva página seleccionada por el usuario
+        }
+        else if (isset($_POST["selected_page"])) {
+            // Si ya se había seleccionado una página anteriormente la carga:
+            $page = $_POST["selected_page"];
+        }
+        $filter = (isset($_POST["filter"])) ? $_POST["filter"] : "";  // Carga el filtro, si existe
+
+        // Comprueba si el usuario ha ordenado la tabla por algún campo:
+        $sort = (isset($_POST["sort"])) ? $_POST["sort"] : "";
+        if (!empty($sort)) {
+            // Si es así crea la instrucción "ORDER BY" para pasársela a la consulta de buscar los supervisores
+            $sort_array = explode(":", $sort);
+            $sort = "ORDER BY ".$sort_array[0]." ".$sort_array[1];
+        }
+        else if (isset($_POST["selected_sort"])) {
+            // Si ya se ha seleccionado una ordenación anteriormente la mantiene
+            // (esto interesa tenerlo para cuando el usuario haga el cambio de página)
+            $sort = $_POST["selected_sort"];
+        }
 
         $controller = "supervisors";  // Indica en qué controlador estamos
         $count_posts = Supervisor::countAll($filter);  // Hace el count para la paginación
         $pagination = new PaginationController((!empty($page)) ? $page : 1, $count_posts);
-        $posts = Supervisor::all($pagination->items_show, $pagination->items_page, $filter);  // Guardamos todos los posts en una variable
+        $posts = Supervisor::all($pagination->items_show, $pagination->items_page, $filter, $sort);  // Guardamos todos los supervisores en una variable
         require_once 'views/finder.php';
         require_once 'views/supervisors/index.php';
         $pagination->createPagination($controller, $pagination->pages);  // Muestra la paginación

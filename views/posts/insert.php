@@ -41,7 +41,7 @@
                 <td>
                     <select name="supervisor">
                         <?php 
-                            $supervisors = Supervisor::all();
+                            $supervisors = Supervisor::all(null, null, "");
                             for ($i = 0; $i < count($supervisors); $i++) {
                                 echo "<option value='".$supervisors[$i]->id."'>".$supervisors[$i]->nom."</option>";
                             }
