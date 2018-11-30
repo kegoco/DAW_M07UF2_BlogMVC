@@ -1,7 +1,7 @@
 <div>
     <h2>Insert a new post</h2>
     <form action="<?php echo constant('URL'); ?>posts/updatePost" method="post" enctype="multipart/form-data">
-        <table>
+        <table class="table">
             <input type="hidden" name="id" value="<?php echo $post->id; ?>" readonly>
             <tr>
                 <td>
@@ -43,7 +43,7 @@
                 <td>
                     <select name="supervisor">
                         <?php 
-                            $supervisors = Supervisor::all();
+                            $supervisors = Supervisor::all(null, null, "", "");
                             for ($i = 0; $i < count($supervisors); $i++) {
                                 echo "<option value='".$supervisors[$i]->id."' ".(($supervisors[$i]->id == $post->supervisor_id) ? "selected" : "").">".$supervisors[$i]->nom."</option>";
                             }

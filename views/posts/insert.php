@@ -1,7 +1,7 @@
 <div>
     <h2>Insert a new post</h2>
     <form action="<?php echo constant('URL'); ?>posts/insertNewPost" method="post" enctype="multipart/form-data">
-        <table>
+        <table class="table">
             <tr>
                 <td>
                     <b>Title:</b>
@@ -41,7 +41,7 @@
                 <td>
                     <select name="supervisor">
                         <?php 
-                            $supervisors = Supervisor::all(null, null, "");
+                            $supervisors = Supervisor::all(null, null, "", "");
                             for ($i = 0; $i < count($supervisors); $i++) {
                                 echo "<option value='".$supervisors[$i]->id."'>".$supervisors[$i]->nom."</option>";
                             }

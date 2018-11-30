@@ -1,10 +1,10 @@
 <div>
-    <div>
-        <a href='<?php echo constant('URL'); ?>posts/insert'>Insert post</a>
+    <div> <!-- TODO: Poner padding al div... -->
+        <a class="btn btn-yellowgreen" href='<?php echo constant('URL'); ?>posts/insert'>Insert post</a>
     </div>
 
     <p><strong>Listado de los posts:</strong></p>
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 <th>
@@ -36,6 +36,9 @@
                     <span>Supervisor</span>
                     <button name="sort" value="supervisor:asc">↑</button>
                     <button name="sort" value="supervisor:desc">↓</button>
+                </th>
+                <th>
+                    
                 </th>
             </tr>
         </thead>

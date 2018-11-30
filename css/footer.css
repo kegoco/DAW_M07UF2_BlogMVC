@@ -1,0 +1,13 @@
+/* ESTILO PARA EL FOOTER */
+.footer-container {
+    background-color: #303030;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.copyRight {
+    color: white;
+    font-weight: bold;
+}

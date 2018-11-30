@@ -1,0 +1,51 @@
+/* ESTILO GLOBAL DE LA PÁGINA */
+.body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.body-container {
+    flex: 1;
+}
+
+.btn {
+    padding: 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: white;
+}
+
+.btn-yellowgreen {
+    background-color: yellowgreen;
+}
+
+
+
+/* ESTILO PARA LA TABLA */
+.table {
+    width: 100vw;
+}
+
+.table > thead {
+    background-color: gainsboro;
+}
+.table > thead > tr > th {
+    font-weight: bold;
+    text-align: left;
+}
+.table > tbody > tr > td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+
+
+/* ESTILO PARA LA PAGINACIÓN */
+.pagination {
+    list-style: none;
+    
+}
+.pagination > li {
+    display: inline;
+}

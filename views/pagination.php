@@ -1,5 +1,5 @@
 <div>
-    <ul>
+    <ul class="pagination">
         <li><button type='submit' name='page' value='1'>First</button></li>
         <?php
         foreach ($pages as $page) {

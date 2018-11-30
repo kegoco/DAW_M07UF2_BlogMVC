@@ -4,7 +4,7 @@
     </div>
 
     <p><strong>Listado de los supervisores:</strong></p>
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 <th>
@@ -21,6 +21,9 @@
                     <span>Is boss</span>
                     <button name="sort" value="is_boss:asc">↑</button>
                     <button name="sort" value="is_boss:desc">↓</button>
+                </th>
+                <th>
+                    
                 </th>
             </tr>
         </thead>
