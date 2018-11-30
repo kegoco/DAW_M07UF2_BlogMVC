@@ -22,11 +22,26 @@
     justify-content: center;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 .title {
     font-weight: bold;
     font-size: 20px;
     margin-bottom: 20px;
 }
+.success-message {
+    font-weight: bold;
+    font-size: 20px;
+    color: #008000;
+}
+.warning-message {
+    font-weight: bold;
+    font-size: 20px;
+    color: red;
+}
+
 
 .btn {
     padding: 10px;
@@ -49,6 +64,16 @@
 .btn-yellowgreen {
     background-color: yellowgreen;
 }
+.btn-red {
+    background-color: #c91d12;
+}
+.btn-green {
+    background-color: #008000;
+}
+.btn-blue {
+    background-color: #0A97CA;
+}
+
 
 
 /* ESTILO PARA LA BARRA DEL BUSCADOR */
@@ -59,11 +84,11 @@
     padding: 10px;
     align-items: center;
 }
-.finder-input {
+.input {
     padding: 10px;
     border-radius: 10px;
 }
-.finder-input:focus {
+.input:focus {
     outline:none;
 }
 
@@ -82,8 +107,8 @@
 .table > thead > tr > th {
     font-weight: bold;
     text-align: left;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 .table > thead > tr {
     -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0,0.5);
@@ -93,6 +118,14 @@
 .table > tbody > tr > td {
     padding-top: 15px;
     padding-bottom: 15px;
+}
+.sort-icon {
+    border: none;
+    background-color: transparent;
+}
+.sort-icon:focus {
+    outline:none;
+    color: yellowgreen;
 }
 
 

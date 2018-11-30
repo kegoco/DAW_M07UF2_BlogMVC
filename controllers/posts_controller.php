@@ -52,7 +52,7 @@ class PostsController
             // Muestra un mensaje indicando que el post se ha creado correctamente
             echo "
                 <div>
-                    <b>Success: The post was created successfully!</b>
+                    <b class='success-message'>Success: The post was created successfully!</b>
                 </div>
             ";
         }
@@ -60,7 +60,7 @@ class PostsController
             // Muestra un mensaje indicando que el post no se ha podido crear
             echo "
                 <div>
-                    <b>Error: The post hasn't been created!</b>
+                    <b class='warning-message'>Error: The post hasn't been created!</b>
                 </div>
             ";
         }

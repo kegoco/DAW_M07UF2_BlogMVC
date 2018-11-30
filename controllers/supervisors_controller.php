@@ -55,7 +55,7 @@ class SupervisorsController
             // Muestra un mensaje indicando que el supervisor se ha creado correctamente
             echo "
                 <div>
-                    <b>Success: The supervisor was created successfully!</b>
+                    <b class='success-message'>Success: The supervisor was created successfully!</b>
                 </div>
             ";
         }
@@ -63,7 +63,7 @@ class SupervisorsController
             // Muestra un mensaje indicando que el supervisor no se ha podido crear
             echo "
                 <div>
-                    <b>Error: The supervisor hasn't been created!</b>
+                    <b class='warning-message'>Error: The supervisor hasn't been created!</b>
                 </div>
             ";
         }

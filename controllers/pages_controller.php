@@ -4,8 +4,8 @@ class PagesController
     public function home()
     {
         // simulación de datos obtenidos de un modelo
-        $first_name = 'Pepe';
-        $last_name = 'Lopez';
+        $first_name = 'Kevin';
+        $last_name = 'Gómez Codina';
         require_once 'views/pages/home.php';
     }
 

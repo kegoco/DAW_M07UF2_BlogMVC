@@ -1,47 +1,47 @@
-<div>
-    <h2>Insert a new post</h2>
+<div class="container">
+    <h1 class="title">Update post #<?php echo $post->id; ?></h1>
     <form action="<?php echo constant('URL'); ?>posts/updatePost" method="post" enctype="multipart/form-data">
         <table class="table">
             <input type="hidden" name="id" value="<?php echo $post->id; ?>" readonly>
             <tr>
                 <td>
-                    <b>Title:</b>
+                    <b class="bold">Title:</b>
                 </td>
                 <td>
-                    <input type="text" name="title" placeholder="Enter a title..." value="<?php echo $post->title; ?>">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <b>Author:</b>
-                </td>
-                <td>
-                    <input type="text" name="author" placeholder="Enter an author..." value="<?php echo $post->author; ?>">
+                    <input class="input" type="text" name="title" placeholder="Enter a title..." value="<?php echo $post->title; ?>">
                 </td>
             </tr>
             <tr>
                 <td>
-                    <b>Content:</b>
+                    <b class="bold">Author:</b>
                 </td>
                 <td>
-                    <input type="text" name="content" placeholder="Enter the post content..." value="<?php echo $post->content; ?>">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <b>Image:</b>
-                </td>
-                <td>
-                    <img src='<?php echo constant('URL')."uploads/".$post->image; ?>' style='width:300px;' />
-                    <input type="file" name="image" />
+                    <input class="input" type="text" name="author" placeholder="Enter an author..." value="<?php echo $post->author; ?>">
                 </td>
             </tr>
             <tr>
                 <td>
-                    <b>Supervisor:</b>
+                    <b class="bold">Content:</b>
                 </td>
                 <td>
-                    <select name="supervisor">
+                    <input class="input" type="text" name="content" placeholder="Enter the post content..." value="<?php echo $post->content; ?>">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b class="bold">Image:</b>
+                </td>
+                <td>
+                    <img src='<?php echo constant('URL')."uploads/".$post->image; ?>' width="200" />
+                    <input class="input" type="file" name="image" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b class="bold">Supervisor:</b>
+                </td>
+                <td>
+                    <select class="input" name="supervisor">
                         <?php 
                             $supervisors = Supervisor::all(null, null, "", "");
                             for ($i = 0; $i < count($supervisors); $i++) {
@@ -51,8 +51,11 @@
                     </select>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <input class="btn btn-green" type="submit" value="Update">
+                </td>
+            </tr>
         </table>
-
-        <input type="submit" value="Update">
     </form>
 </div>

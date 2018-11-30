@@ -4,7 +4,7 @@ echo "<div>
         <form action='".constant('URL').$controller."/index' method='POST'>
             <div class='finder-container'>
                 <div>
-                    <input class='finder-input' type='text' name='filter' placeholder='Search...' value='$filter'>
+                    <input class='input' type='text' name='filter' placeholder='Search...' value='$filter'>
                     <button class='btn btn-yellowgreen' type='submit'>Search</button>
                     <button class='btn btn-yellowgreen' type='submit' name='filter' value=''>Clear filter</button>
                     <input type='hidden' name='selected_sort' value='$sort' readonly>
