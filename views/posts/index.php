@@ -1,9 +1,11 @@
-<div>
-    <div> <!-- TODO: Poner padding al div... -->
-        <a class="btn btn-yellowgreen" href='<?php echo constant('URL'); ?>posts/insert'>Insert post</a>
-    </div>
+<div class="content-right"> <!-- TODO: Poner padding al div... -->
+    <a class="btn btn-yellowgreen" href='<?php echo constant('URL'); ?>posts/insert'>Insert post</a>
+</div>
 
-    <p><strong>Listado de los posts:</strong></p>
+<?php echo "</div>" ?>  <!-- Cierra un div que se abre en el finder.php -->
+
+<div class="container">
+    <h1 class="title">Listado de los posts</h1>
     <table class="table">
         <thead>
             <tr>

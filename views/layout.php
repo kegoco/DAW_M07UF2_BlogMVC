@@ -21,8 +21,8 @@
             <?php require_once 'routes.php';?>
         </div>
 
-        <footer class="footer-container">
-            <span class="copyRight">Copyright</span>
+        <footer class="footer-container content-center">
+            <span class="copyRight text-center">Copyright</span>
         </footer>
     </body>
 </html>

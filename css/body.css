@@ -9,11 +9,41 @@
     flex: 1;
 }
 
+.container {
+    padding: 10px;
+}
+
+.content-right {
+    display: flex;
+    justify-content: flex-end;
+}
+.content-center {
+    display: flex;
+    justify-content: center;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
 .btn {
     padding: 10px;
     border-radius: 10px;
     text-decoration: none;
     color: white;
+}
+.btn:hover {
+    -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0,0.5);
+    -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+}
+.btn:focus {
+    outline:none;
+    -moz-box-shadow: -1px -1px 4px 0px rgba(0, 0, 0,0.5);
+    -webkit-box-shadow: -1px -1px 4px 0px rgba(0, 0, 0, .5);
+    box-shadow: -1px -1px 4px 0px rgba(0, 0, 0, .5);
 }
 
 .btn-yellowgreen {
@@ -21,10 +51,29 @@
 }
 
 
+/* ESTILO PARA LA BARRA DEL BUSCADOR */
+.finder-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    padding: 10px;
+    align-items: center;
+}
+.finder-input {
+    padding: 10px;
+    border-radius: 10px;
+}
+.finder-input:focus {
+    outline:none;
+}
+
 
 /* ESTILO PARA LA TABLA */
 .table {
-    width: 100vw;
+    width: 100%;
+    -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0,0.5);
+    -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
 }
 
 .table > thead {
@@ -33,10 +82,17 @@
 .table > thead > tr > th {
     font-weight: bold;
     text-align: left;
-}
-.table > tbody > tr > td {
     padding-top: 5px;
     padding-bottom: 5px;
+}
+.table > thead > tr {
+    -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0,0.5);
+    -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+}
+.table > tbody > tr > td {
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 
@@ -48,4 +104,23 @@
 }
 .pagination > li {
     display: inline;
+}
+.pagination-button {
+    background-color: yellowgreen;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    padding: 10px;
+    margin: 0 5px;
+}
+.pagination-button:hover {
+    -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0,0.5);
+    -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+}
+.pagination-button:focus {
+    outline:none;
+    -moz-box-shadow: -1px -1px 4px 0px rgba(0, 0, 0,0.5);
+    -webkit-box-shadow: -1px -1px 4px 0px rgba(0, 0, 0, .5);
+    box-shadow: -1px -1px 4px 0px rgba(0, 0, 0, .5);
 }
