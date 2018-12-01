@@ -35,7 +35,7 @@
                     <td><?php echo $post->nom; ?></td>
                     <td><?php echo $post->created_date; ?></td>
                     <td><?php echo $post->is_boss; ?></td>
-                    <td>
+                    <td class="td-action">
                         <a class="btn btn-blue" href='<?php echo constant('URL'); ?>supervisors/show/<?php echo $post->id; ?>'>Read</a>
                         <a class="btn btn-green" href='<?php echo constant('URL'); ?>supervisors/update/<?php echo $post->id; ?>'>Update</a>
                         <a class="btn btn-red" href='<?php echo constant('URL'); ?>supervisors/delete/<?php echo $post->id; ?>'>Delete</a>

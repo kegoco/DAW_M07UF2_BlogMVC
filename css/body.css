@@ -127,6 +127,10 @@
     outline:none;
     color: yellowgreen;
 }
+.td-action {
+    display: flex;
+    flex-direction: row;
+}
 
 
 

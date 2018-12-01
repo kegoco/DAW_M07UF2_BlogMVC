@@ -53,7 +53,7 @@
                     <td><?php echo $post->created_date; ?></td>
                     <td><?php echo $post->modified_date; ?></td>
                     <td><?php echo $post->supervisor_name; ?></td>
-                    <td>
+                    <td class="td-action">
                         <a class="btn btn-blue" href='<?php echo constant('URL'); ?>posts/show/<?php echo $post->id; ?>'>Read</a>
                         <a class="btn btn-green" href='<?php echo constant('URL'); ?>posts/update/<?php echo $post->id; ?>'>Update</a>
                         <a class="btn btn-red" href='<?php echo constant('URL'); ?>posts/delete/<?php echo $post->id; ?>'>Delete</a>
